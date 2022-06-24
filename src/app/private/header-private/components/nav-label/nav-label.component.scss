@@ -1,0 +1,22 @@
+@import "../../../../theme/variables";
+
+.nav-label {
+  color: black;
+  font-weight: 200;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.nav-label-active {
+  color: cornflowerblue;
+  background-color: $background-elements;
+  font-weight: 200;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@import "../../../../theme/customClasses";

@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-auto align-items-center">
+        <div class="d-flex align-items-center">
+          <button
+            mat-button
+            class="menuButton"
+            [matMenuTriggerFor]="menu"
+            *ngIf="isAdmin"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-menu
+            #menu="matMenu"
+            class="p-2"
+          >
+            <app-nav-label
+              labelString="Palestre"
+              [path]="Path.GymPage"
+            ></app-nav-label>
+            <app-nav-label
+              labelString="Abbonamenti"
+              [path]="Path.MembershipsPage"
+            ></app-nav-label>
+            <app-nav-label
+              labelString="Schede"
+              [path]="Path.SchedePage"
+            ></app-nav-label>
+            <app-nav-label
+              labelString="Utenti"
+              [path]="Path.UsersGymPage"
+            ></app-nav-label>
+          </mat-menu>
+          <span
+            class="logo-text clickable"
+            [routerLink]="[Path.Home]"
+          >EITS</span>
+
+        </div>
+      </div>
+      <div
+        class="col-8 navigation"
+        *ngIf="isAdmin"
+      >
+        <div class="row justify-content-between align-items-center">
+          <div class="col-2 m-0">
+            <app-nav-label
+              labelString="Palestre"
+              [path]="Path.GymPage"
+            ></app-nav-label>
+          </div>
+          <div class="col-2 m-0">
+            <app-nav-label
+              labelString="Abbonamenti"
+              [path]="Path.MembershipsPage"
+            ></app-nav-label>
+          </div>
+          <div class="col-2 m-0">
+            <app-nav-label
+              labelString="Schede"
+              [path]="Path.SchedePage"
+            ></app-nav-label>
+          </div>
+          <div class="col-2 m-0">
+            <app-nav-label
+              labelString="Utenti"
+              [path]="Path.UsersGymPage"
+            ></app-nav-label>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-auto">
+        <button
+          mat-raised-button
+          color="warn"
+          class="custom-material-button"
+          (click)="logout()"
+        >
+          <mat-icon>exit_to_app</mat-icon>Logout
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

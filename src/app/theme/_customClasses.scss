@@ -1,0 +1,18 @@
+@import "variables";
+
+mat-card,
+.custom-material-wrapper {
+  background-color: $background-elements !important;
+  border-radius: $material-border-radus !important;
+  box-shadow: none !important;
+}
+
+.custom-material-button {
+  box-shadow: none !important;
+  border-radius: 100px !important;
+}
+
+.custom-material-rounded-button {
+  box-shadow: none !important;
+  border-radius: 16px !important;
+}

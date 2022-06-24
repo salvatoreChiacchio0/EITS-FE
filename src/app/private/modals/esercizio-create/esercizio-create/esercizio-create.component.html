@@ -1,0 +1,73 @@
+<div class="row">
+    <div *ngIf="data else createEse">
+        <h3 class="mb-2">Modifica Esercizio</h3>
+    </div>
+    <ng-template #createEse>
+        <h3 class="mb-2">Aggiungi Esercizio</h3>
+    </ng-template>
+    <form [formGroup]="createEsForm" (ngSubmit)="onSubmit()" class="mt-3">
+        <div class="row justify-content-center pt-1">
+                <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center">
+                    <p>
+                        <mat-form-field appearance="outline" class="full_width-input">
+                            <mat-label>Nome</mat-label>
+                            <input matInput placeholder="Nome" formControlName="nome" />
+                        </mat-form-field>
+                    </p>
+                </div>
+    
+        </div>
+    
+        <div class="row justify-content-center pt-1">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12 m-0" align="center">
+                <p>
+                    <mat-form-field appearance="outline" class="full_width-input">
+                        <mat-label>Foto</mat-label>
+                        <input matInput placeholder="Foto esercizio link dal web" formControlName="foto" />
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+                <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center">
+                    <p>
+                        <mat-form-field appearance="outline" class="full_width-input">
+                            <mat-label>Tempo di recupero</mat-label>
+                            <input matInput type="number" placeholder="Tempo di recupero esercizio" formControlName="tempoRecupero" />
+                        </mat-form-field>
+                    </p>
+                </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center" >
+                <p>
+                    <mat-form-field appearance="outline" class="full_width-input">
+                        <mat-label>Numero ripetizioni</mat-label>
+                        <input type="number" matInput placeholder="Numero di ripetizioni" formControlName="numeroRipetizioni" />
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center" >
+                <p>
+                    <mat-form-field appearance="outline" class="full_width-input">
+                        <mat-label>Tipo</mat-label>
+                        <input matInput placeholder="Cardio/Addominali/Gambe/Spalle ecc" formControlName="tipo" />
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+      
+    
+    
+        <div class="row justify-content-center pt-1">
+            <div class="col" align="center">
+                <button mat-button color="warn" mat-dialog-close>Chiudi</button>
+                <button type="submit" [disabled]="createEsForm.invalid" mat-raised-button mat-dialog-close>
+                            <span > Salva </span>
+                          </button>
+            </div>
+        </div>
+    </form>
+</div>

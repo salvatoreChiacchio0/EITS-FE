@@ -1,0 +1,48 @@
+.container-fluid {
+  background-color: #fcfafb;
+
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.05);
+}
+.row {
+  height: 10vh;
+}
+.navbar-brand {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.logo-text {
+  color: #223150;
+  font-weight: 700;
+  font-size: 1.875rem;
+  text-decoration: none;
+}
+
+.padding-top {
+  padding-top: 10px !important;
+}
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .menuButton {
+    visibility: visible;
+    display: block;
+  }
+  .navigation {
+    display: none;
+    visibility: hidden;
+  }
+}
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+    visibility: hidden;
+  }
+  .navigation {
+    align-items: center;
+  }
+}
+
+@import "../../theme/customClasses";

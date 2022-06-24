@@ -1,0 +1,285 @@
+<app-header-private></app-header-private>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+<div *ngIf="!isLoading;else loader">
+  <div
+    class="container-fluid"
+    *ngIf="scheda"
+  >
+    <div class="col-12 col-md-10 offset-md-1">
+      <div class="d-flex gap-4 mt-4 mb-4">
+        <button
+          mat-icon-button
+          (click)="goBack()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteScheda()"
+          class="custom-material-button mr-4"
+          *ngIf="role"
+        >
+          <mat-icon>delete</mat-icon> Elimina
+        </button>
+        <button
+          mat-raised-button
+          color="success"
+          class="custom-material-button"
+          (click)="editScheda()"
+          *ngIf="role"
+        >
+          <mat-icon>edit</mat-icon> Modifica
+        </button>
+      </div>
+      <div class="row justify-content-center  mt-4">
+        <div class="col-auto">
+          <h3>Scheda Allenamento: {{scheda.nome}}</h3>
+        </div>
+      </div>
+      <div class="row text-center mt-4">
+        <div class="col-6 m-0 p-0  mb-4">
+          <h5>Data Inizio</h5>
+          <span>{{scheda.dataInizio}}</span>
+        </div>
+        <div class="col-6 m-0 p-0 mb-4">
+          <h5>Data Fine</h5>
+          <span>{{scheda.dataFine}}</span>
+        </div>
+      </div>
+      <mat-divider class="mb-3"></mat-divider>
+      <div
+        class="container"
+        *ngIf="esercizi.length != 0 else noEsercizi"
+      >
+
+        <div class="d-flex justify-content-between">
+          <form class="example-form">
+            <mat-form-field
+              class="example-full-width"
+              appearance="outline"
+            >
+              <mat-label>Cerca Esercizio</mat-label>
+              <input
+                type="text"
+                aria-label="Number"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+              >
+              <mat-autocomplete
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let option of filteredOptions | async"
+                  [value]="option.nome"
+                >
+                  {{option.nome}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+          <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle
+              value="left"
+              aria-label="Text align left"
+              (click)="changeViewExercise('false')"
+            >
+              <mat-icon>grid_on</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="center"
+              aria-label="Text align center"
+              (click)="changeViewExercise('true')"
+            >
+              <mat-icon> format_list_bulleted</mat-icon>
+            </mat-button-toggle>
+
+          </mat-button-toggle-group>
+        </div>
+        <div
+          class="row justify-content-start "
+          *ngIf="!toggleSelection else tableList"
+          id="htmlData"
+        >
+          <div
+            class=" col-12 col-lg-3 col-md-6  justify-content-center mt-3"
+            *ngFor="let esercizio of searchedScheda"
+          >
+            <mat-card class="example-card mt-4">
+              <mat-card-header>
+                <mat-card-title>{{esercizio.nome}}</mat-card-title>
+                <mat-card-subtitle>{{esercizio.tipo}}</mat-card-subtitle>
+              </mat-card-header>
+              <img
+                mat-card-image
+                src="{{esercizio.foto}}"
+                alt="Photo of a Shiba Inu"
+              >
+              <mat-card-content>
+                <p>
+                  Tempo di recupero: {{esercizio.tempoRecupero}} sec <br>
+                  Ripetizioni: {{esercizio.numeroRipetizioni}}
+                </p>
+              </mat-card-content>
+              <mat-card-actions *ngIf="role">
+                <button
+                  mat-button
+                  (click)="deleteEsercizio(esercizio)"
+                >Rimuovi</button>
+                <button
+                  mat-button
+                  (click)="editEsercizio(esercizio)"
+                >Modifica</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        <ng-template #tableList>
+          <div
+            class="custom-material-wrapper"
+            id="htmlData"
+          >
+            <table
+              class="custom-material-wrapper"
+              mat-sort
+              mat-table
+              [dataSource]="dataSource"
+            >
+              <ng-container
+                class="custom-material-wrapper"
+                matColumnDef="Nome"
+              >
+                <th
+                  class="custom-material-wrapper"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >Nome</th>
+                <td
+                  class="custom-material-wrapper"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.nome }}
+                </td>
+              </ng-container>
+
+              <ng-container
+                class="custom-material-wrapper"
+                matColumnDef="Tipo"
+              >
+                <th
+                  class="custom-material-wrapper"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >Tipo</th>
+                <td
+                  class="custom-material-wrapper"
+                  mat-cell
+                  *matCellDef="let element"
+                >{{ element.tipo }}</td>
+              </ng-container>
+
+              <ng-container
+                class="custom-material-wrapper"
+                matColumnDef="Tempo di recupero"
+              >
+                <th
+                  class="custom-material-wrapper"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >Tempo di recupero</th>
+                <td
+                  class="custom-material-wrapper"
+                  mat-cell
+                  *matCellDef="let element"
+                >{{ element.tempoRecupero }}</td>
+              </ng-container>
+
+
+              <ng-container
+                class="custom-material-wrapper"
+                matColumnDef="Ripetizioni"
+              >
+                <th
+                  class="custom-material-wrapper"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >Ripetizioni</th>
+                <td
+                  class="custom-material-wrapper"
+                  mat-cell
+                  *matCellDef="let element"
+                >{{ element.numeroRipetizioni }}
+                </td>
+              </ng-container>
+
+
+              <tr
+                class="custom-material-wrapper"
+                mat-header-row
+                *matHeaderRowDef="displayedColumns"
+              ></tr>
+              <tr
+                class="custom-material-wrapper"
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+            <mat-paginator
+              class="custom-material-wrapper"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+            ></mat-paginator>
+
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #noEsercizi>
+        <div class="col-5 m-0 p-0">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title class="text-center">Scheda di allenamento</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p *ngIf="esercizi.length == 0 else changeParagraph">
+                <span>Non hai nessun esercizio associato a questa scheda. <br>Per aggiungere nuovi esercizi clicca
+                  qui!</span>
+              </p>
+              <ng-template #changeParagraph>
+                <p>
+                  Nessuna Scheda inserita,clicca qui!
+                </p>
+              </ng-template>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                mat-raised-button
+                color="success"
+                (click)="addEsercizio()"
+              >
+                <mat-icon class="mr-4">add</mat-icon><span>Aggiungi Esercizio</span>
+              </button>
+
+
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+      </ng-template>
+      <button
+        mat-raised-button
+        color="success"
+        class="custom-material-button mt-4"
+        (click)="downloadScheda()"
+        *ngIf="!role"
+      >
+        <mat-icon>download</mat-icon> Download Scheda
+      </button>
+    </div>
+
+
+  </div>
+</div>

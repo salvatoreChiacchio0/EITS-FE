@@ -1,0 +1,19 @@
+.container-fluid {
+  height: calc(100vh - 12vh);
+  margin-top: 2vh;
+}
+table {
+  width: 100%;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+@import "../../../theme/customClasses";

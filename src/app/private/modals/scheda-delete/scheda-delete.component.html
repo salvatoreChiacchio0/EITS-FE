@@ -1,0 +1,14 @@
+<div class="container-fluid" *ngIf="deleteObject">
+    <h3>Elimina {{deleteObject.type}}</h3>
+    <span>Sei sicuro di voler eliminare?</span>
+    <div class="row justify-content-end mt-3">
+        <div class="col-6"><button  mat-button mat-dialog-close>
+            <span > Chiudi </span>
+          </button></div>
+        <div class="col-6"><button color="warn" mat-raised-button mat-dialog-close (click)="deleteScheda()">
+            <span > Elimina </span>
+          </button></div>
+      
+    </div>
+    
+</div>

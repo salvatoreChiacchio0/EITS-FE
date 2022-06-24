@@ -1,0 +1,166 @@
+<div class="row justify-content-center text-center">
+  <div *ngIf="data else createGym">
+    <h3 class="mb-2">Modifica Scheda</h3>
+  </div>
+  <ng-template #createGym>
+    <h3 class="mb-2">Aggiungi Scheda</h3>
+  </ng-template>
+  <form
+    [formGroup]="createSchedaForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="row justify-content-center pt-1">
+      <div
+        class="col-12 col-md-10"
+        align="center"
+      >
+        <mat-form-field
+          appearance="outline"
+          class="full_width-input"
+        >
+          <mat-label>Nome Scheda</mat-label>
+          <input
+            matInput
+            placeholder="Nome scheda"
+            formControlName="nome"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          class="example-chip-list"
+          appearance="outline"
+        >
+          <mat-label>Seleziona Esercizi</mat-label>
+
+          <mat-chip-list #chipList>
+            <mat-chip
+              *ngFor="let element of selectedExercise"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(element)"
+            >
+              {{element}}
+              <mat-icon
+                matChipRemove
+                *ngIf="removable"
+              >cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="Seleziona Eseercizi"
+              #userInput
+              formControlName="idEsercizi"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+            >
+          </mat-chip-list>
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              *ngFor="let element of filteredOptions | async"
+              [value]="element.id"
+            >
+              {{element.nome}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+        >
+          <mat-label>Seleziona Utente</mat-label>
+          <input
+            type="text"
+            aria-label="Number"
+            matInput
+            [formControl]="myControlUser"
+            [matAutocomplete]="auto2"
+          >
+          <mat-autocomplete #auto2="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptionsUser | async"
+              [value]="option.email"
+              (click)="setUserId(option.id)"
+            >
+              {{option.email}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div
+        class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12  m-0 p-0"
+        align="center"
+      >
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+        >
+          <mat-label>Data Inizio</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Data Inizio"
+            formControlName="dataInizio"
+          >
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div
+        class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12  m-0 p-0"
+        align="center"
+      >
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+        >
+          <mat-label>Data Fine</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            placeholder="Data Fine"
+            formControlName="dataFine"
+          >
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row justify-content-center pt-1">
+      <div
+        class="col"
+        align="center"
+      >
+        <button
+          mat-button
+          color="warn"
+          mat-dialog-close
+        >Chiudi</button>
+        <button
+          type="submit"
+          [disabled]="createSchedaForm.invalid"
+          mat-raised-button
+          mat-dialog-close
+        >
+          <span> Salva </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

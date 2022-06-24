@@ -1,0 +1,70 @@
+<div class="row">
+    <div *ngIf="data ">
+        <h3 class="mb-2">Modifica Abbonamento</h3>
+    </div>
+   
+    <form [formGroup]="editMembershipForm" (ngSubmit)="onSubmit()" class="mt-3">
+        <div class="row justify-content-center pt-1">
+                <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center">
+                    <p>
+                        <mat-form-field appearance="outline" class="full_width-input">
+                            <mat-label>Nome</mat-label>
+                            <input matInput placeholder="Nome" formControlName="nome" />
+                        </mat-form-field>
+                    </p>
+                </div>
+    
+        </div>
+    
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Data Inizio</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Data Inizio"
+                             formControlName="dataInizio">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+            </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center" >
+                
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Data Fine</mat-label>
+                    <input matInput [matDatepicker]="picker2" placeholder="Data Fine"
+                         formControlName="dataFine">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+        </div>
+    </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center" >
+                <p>
+                    <mat-form-field appearance="outline" class="full_width-input">
+                        <mat-label>Costo</mat-label>
+                        <input type="number" matInput placeholder="Costo" formControlName="costo" />
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-12 col-lg-11 col-md-10 col-sm-11 col-12" align="center" >
+                    
+                        <mat-slide-toggle (change)="changeStateSettings()">Pagato</mat-slide-toggle>
+            </div>
+        </div>    
+      
+    
+    
+        <div class="row justify-content-center pt-1">
+            <div class="col" align="center">
+                <button mat-button color="warn" mat-dialog-close>Chiudi</button>
+                <button type="submit" [disabled]="editMembershipForm.invalid" mat-raised-button mat-dialog-close>
+                            <span > Salva </span>
+                          </button>
+            </div>
+        </div>
+    </form>
+</div>

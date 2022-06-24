@@ -1,0 +1,45 @@
+<!-- Container della pagina -->
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-md-6 h-100 d-flex flex-column justify-content-center">
+            <div class="align-self-center">
+                <img class="logo" src="assets/images/calendar.png" (click)="returnHome()" alt="Terna Logo">
+            </div>
+            <div class="d-flex flex-column align-self-center login-card">
+                <h1 class="title nomargin">Bentornato!</h1>
+                <p class="subtitle">Inserisci qui le tue credenziali</p>
+
+                <div class="login-form">
+                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+                        <!--- Email Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" formControlName="email" />
+                            <mat-error *ngIf=" getLoginForm.email.errors &&  getLoginForm.email.errors.required ">
+                                Email obbligatorio</mat-error>
+                        </mat-form-field>
+                        <!--- Password Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="isPasswordHidden ? 'password' : 'text'" placeholder="Password"
+                                formControlName="password" />
+                            <button type="button" mat-icon-button matSuffix (click)="onChange()">
+                                <mat-icon>{{isPasswordHidden ? "visibility" : "visibility_off"}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="getLoginForm.password.errors && getLoginForm.password.errors.required">
+                                Password obbligatoria</mat-error>
+                        </mat-form-field>
+                        <!-- Remember me Checkbox -->
+                        <!--- Submit Button --->
+                        <mat-error *ngIf="boolError">Username o Password errate</mat-error>
+                        <button mat-raised-button color="primary" type="submit"
+                            [disabled]="!loginForm.valid">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--- Custom Image TOTHINK: A Carousel of different images --->
+        <div class="col-md-6 d-none d-sm-none d-md-block background">
+        </div>
+    </div>
+</div>

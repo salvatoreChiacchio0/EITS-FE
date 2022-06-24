@@ -1,0 +1,30 @@
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+img {
+  height: 200px !important;
+  object-fit:scale-down;
+
+}
+.example-selected-value {
+  margin: 15px 0;
+}
+mat-button-toggle-group {
+  height: fit-content;
+}
+table {
+  width: 100%;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+@import "../../../theme/customClasses";

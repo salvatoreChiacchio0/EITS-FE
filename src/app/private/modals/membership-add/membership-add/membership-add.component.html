@@ -1,0 +1,32 @@
+<h3>Aggiungi Abbonamento</h3>
+<h6>{{data.nome.toUpperCase()}} {{data.cognome.toUpperCase()}}</h6>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="membership">
+
+    <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>Seleziona Esercizi</mat-label>
+
+        <mat-chip-list #chipList>
+            <mat-chip *ngFor="let element of selectedAbbonamenti" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(element)">
+                {{element}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Seleziona Abbonamenti" #userInput formControlName="abbonamenti" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let element of filteredOptions | async" [value]="element.id">
+                {{element.nome}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div class="row justify-content-center pt-1">
+        <div class="col" align="center">
+            <button mat-button color="warn" mat-dialog-close>Chiudi</button>
+            <button type="submit" [disabled]="userForm.invalid" mat-raised-button mat-dialog-close>
+                        <span > Salva </span>
+                      </button>
+        </div>
+    </div>
+</form>

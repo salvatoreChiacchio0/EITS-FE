@@ -1,0 +1,73 @@
+<!-- Container della pagina -->
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-md-6 h-100 d-flex flex-column justify-content-center">
+            
+            <div class="d-flex flex-column align-self-center login-card">
+                <div class="align-self-center mt-3">
+                    <img class="logo" src="assets/images/calendar.png" (click)="returnHome()" alt="Terna Logo">
+                </div>
+                <h1 class="title nomargin">Benvenuto</h1>
+                <p class="subtitle">Crea il tuo account!</p>
+
+                <div class="login-form">
+                 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+                        <!--- Email Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="nome" />
+                            <mat-error *ngIf=" getUserForm.nome.errors &&  getUserForm.nome.errors.required ">
+                                Nome obbligatorio</mat-error>
+                        </mat-form-field>
+                        <!--- Password Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cognome</mat-label>
+                            <input matInput  formControlName="cognome" />
+                            <mat-error *ngIf=" getUserForm.cognome.errors &&  getUserForm.cognome.errors.required ">
+                                Cognome obbligatorio</mat-error>
+                        </mat-form-field>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput  formControlName="email" />
+                            <mat-error *ngIf=" getUserForm.email.errors &&  getUserForm.email.errors.required ">
+                                Email obbligatorio</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput  type="password" formControlName="password" />
+                            <mat-error *ngIf=" getUserForm.password.errors &&  getUserForm.password.errors.required ">
+                                Password obbligatorio</mat-error>
+                        </mat-form-field>
+                        <!--<mat-form-field appearance="outline">
+                            <mat-label>Data di nascita</mat-label>
+
+                            <input
+                              required
+                              matInput
+                              [matDatepicker]="picker"
+                              formControlName="dataDiNascita"
+
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Comune di nascita</mat-label>
+                            <input matInput formControlName="comuneDiResidenza" />
+                            <mat-error *ngIf=" getUserForm.comuneDiResidenza.errors &&  getUserForm.comuneDiResidenza.errors.required ">
+                                Comune di residenza obbligatorio</mat-error>
+                        </mat-form-field>-->
+                        <!-- Remember me Checkbox -->
+                        <!--- Submit Button --->
+                        <button mat-raised-button color="primary" type="submit"
+                            [disabled]="!userForm.valid">Registrati</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--- Custom Image TOTHINK: A Carousel of different images --->
+        <div class="col-md-6 d-none d-sm-none d-md-block background">
+        </div>
+    </div>
+</div>

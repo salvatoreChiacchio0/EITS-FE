@@ -1,0 +1,177 @@
+<app-header-private></app-header-private>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+<div
+  class="container-fluid"
+  *ngIf="!isLoading;else loader"
+>
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="d-flex gap-4 mt-4 mb-4">
+      <button
+        mat-raised-button
+        color="primary"
+        class="custom-material-button"
+        (click)="createUser()"
+      >
+        <mat-icon>add</mat-icon>
+        <span>Utente</span>
+      </button>
+    </div>
+    <div *ngIf="users">
+      <div class="search-container">
+        <h3>Ricerca utenti</h3>
+        <div class="row justify-content-between align-items-center">
+          <div class=" col-auto">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Cerca per nome"
+                autocomplete="off"
+                (keyup)="filterData($event)"
+              >
+            </mat-form-field>
+          </div>
+          <div class="col-auto">
+            <mat-form-field appearance="outline">
+              <mat-select
+                (selectionChange)="onChange($event)"
+                placeholder="Ruolo"
+              >
+                <mat-option value="ROLE_ADMIN">Admin</mat-option>
+                <mat-option value="ROLE_USER">User</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-auto">
+            <mat-form-field appearance="outline">
+              <mat-select
+                (selectionChange)="onChangeMembership($event)"
+                placeholder="Abbonamento"
+              >
+                <mat-option value="true">Attivo</mat-option>
+                <mat-option value="false">Non Attivo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-auto">
+            <button
+              mat-button
+              class="custom-material-button"
+              (click)="reset()"
+            >Reset Filtri</button>
+          </div>
+        </div>
+      </div>
+      <div class="custom-material-wrapper">
+        <table
+          class="custom-material-wrapper"
+          mat-sort
+          mat-table
+          [dataSource]="dataSource"
+        >
+          <ng-container matColumnDef="Nome">
+            <th
+              class="custom-material-wrapper"
+              mat-header-cell
+              *matHeaderCellDef
+            >Nome</th>
+            <td
+              class="custom-material-wrapper"
+              mat-cell
+              *matCellDef="let element"
+             >
+              {{ element.nome }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cognome">
+            <th
+              class="custom-material-wrapper"
+              mat-header-cell
+              *matHeaderCellDef
+            >Cognome</th>
+            <td
+              class="custom-material-wrapper"
+              mat-cell
+              *matCellDef="let element"
+             >{{
+              element.cognome }}</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Email">
+            <th
+              class="custom-material-wrapper"
+              mat-header-cell
+              *matHeaderCellDef
+            >Email</th>
+            <td
+              class="custom-material-wrapper"
+              mat-cell
+              *matCellDef="let element"
+             >{{
+              element.email }}</td>
+          </ng-container>
+          <ng-container matColumnDef=" ">
+            <th
+              class="custom-material-wrapper"
+              mat-header-cell
+              *matHeaderCellDef
+            ></th>
+            <td
+              class="custom-material-wrapper"
+              mat-cell
+              *matCellDef="let element"
+            ><button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <!--<button mat-menu-item (click)="editUser(element)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Modifica</span>
+                </button>-->
+                <button
+                  mat-menu-item
+                  (click)="addMembership(element)"
+                >
+                  <mat-icon>info</mat-icon>
+                  <span>Aggiungi abbonamento</span>
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="userMembership(element)"
+                  *ngIf="element.abbonamenti.length >0"
+                >
+                  <mat-icon>info</mat-icon>
+                  <span>Visualizza abbonamenti</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr
+            class="custom-material-wrapper"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="custom-material-wrapper"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+        <mat-paginator
+          class="custom-material-wrapper"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+
+      </div>
+    </div>
+  </div>
+
+</div>

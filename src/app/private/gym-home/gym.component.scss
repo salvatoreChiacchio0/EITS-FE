@@ -1,0 +1,22 @@
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+table {
+  width: 100%;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+.map-palestre {
+  border-radius: 10px;
+}
+
+@import "../../theme/customClasses";

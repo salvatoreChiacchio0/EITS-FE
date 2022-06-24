@@ -1,0 +1,52 @@
+<!-- Container della pagina -->
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-md-6 h-100 d-flex flex-column justify-content-center">
+            
+            <div class="d-flex flex-column align-self-center login-card">
+                <div class="align-self-center mt-3">
+                    <img class="logo" src="assets/images/calendar.png" (click)="returnHome()" alt="Terna Logo">
+                </div>
+                <h1 class="title nomargin">Benvenuto</h1>
+                <p class="subtitle">Crea il tuo account!</p>
+
+                <div class="login-form">
+                 <form [formGroup]="gymForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+                        <!--- Email Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="nome" />
+                            <mat-error *ngIf=" getGymForm.nome.errors &&  getGymForm.nome.errors.required ">
+                                Nome obbligatorio</mat-error>
+                        </mat-form-field>
+                        <!--- Password Field --->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Indirizzo</mat-label>
+                            <input matInput  formControlName="indirizzo" />
+                            <mat-error *ngIf=" getGymForm.indirizzo.errors &&  getGymForm.indirizzo.errors.required ">
+                                Indirizzo obbligatorio</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Latitudine</mat-label>
+                            <input matInput  formControlName="latitudine" />
+                            <mat-error *ngIf=" getGymForm.latitudine.errors &&  getGymForm.latitudine.errors.required ">
+                                Latitudine obbligatorio</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Longitudine</mat-label>
+                            <input matInput  formControlName="longitudine" />
+                            <mat-error *ngIf=" getGymForm.longitudine.errors &&  getGymForm.longitudine.errors.required ">
+                                Longitudine obbligatorio</mat-error>
+                        </mat-form-field>
+                      
+                        <button mat-raised-button color="primary" type="submit"
+                            [disabled]="!gymForm.valid">Registrati</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--- Custom Image TOTHINK: A Carousel of different images --->
+        <div class="col-md-6 d-none d-sm-none d-md-block background">
+        </div>
+    </div>
+</div>

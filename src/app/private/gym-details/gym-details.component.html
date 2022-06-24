@@ -1,0 +1,246 @@
+<app-header-private></app-header-private>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+<div class="container-fluid">
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="d-flex gap-4 mt-4 mb-4">
+      <button
+        mat-icon-button
+        (click)="goBack()"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteGym()"
+        class="custom-material-button mb-4"
+        *ngIf="gym"
+      >
+        <mat-icon>delete</mat-icon> Elimina
+      </button>
+      <button
+        mat-raised-button
+        color="success"
+        (click)="editGym()"
+        class="custom-material-button mb-4"
+        *ngIf="gym"
+      >
+        <mat-icon>edit</mat-icon> Modifica
+      </button>
+
+    </div>
+    <div
+      class="row"
+      *ngIf="!isLoading;else loader"
+    >
+      <div class="col-12 text-center">
+        <h2>{{gym.nome}}</h2>
+      </div>
+      <div class="row text-center mt-4">
+        <div class="col-lg-3 col-md-6 col-6 m-0 p-0  mb-4">
+          <h5>Abbonamenti</h5>
+          <span>{{gym.abbonamenti?.length}}</span>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6 m-0 p-0 mb-4">
+          <h5>Indirizzo</h5>
+          <span>{{gym.indirizzo}}</span>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6 m-0 p-0 mb-4">
+          <h5>Latitudine</h5>
+          <span>{{gym.latitudine}}</span>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6 m-0 p-0 mb-4">
+          <h5>Longitudine</h5>
+          <span>{{gym.longitudine}}</span>
+        </div>
+      </div>
+      <mat-divider class="mb-3"></mat-divider>
+      <div class="row m-0 p-0">
+        <div class="col-12 ">
+          <div
+            class="mb-4"
+            *ngIf="gym && gym.abbonamenti && gym.abbonamenti.length >0 else noMembership"
+          >
+            <h2>Lista Abbonamenti</h2>
+            <div class="custom-material-wrapper">
+              <table
+                class="custom-material-wrapper"
+                mat-sort
+                mat-table
+                [dataSource]="dataSource"
+              >
+                <ng-container
+                  class="custom-material-wrapper"
+                  matColumnDef="Nome"
+                >
+                  <th
+                    class="custom-material-wrapper"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >Nome</th>
+                  <td
+                    class="custom-material-wrapper"
+                    mat-cell
+                    *matCellDef="let element"
+                  >
+                    {{ element.nome }}
+                  </td>
+                </ng-container>
+
+                <ng-container
+                  class="custom-material-wrapper"
+                  matColumnDef="Data Inizio"
+                >
+                  <th
+                    class="custom-material-wrapper"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >Data Inizio</th>
+                  <td
+                    class="custom-material-wrapper"
+                    mat-cell
+                    *matCellDef="let element"
+                  >{{ element.dataInizio }}</td>
+                </ng-container>
+
+                <ng-container
+                  class="custom-material-wrapper"
+                  matColumnDef="Data Fine"
+                >
+                  <th
+                    class="custom-material-wrapper"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >Data Fine</th>
+                  <td
+                    class="custom-material-wrapper"
+                    mat-cell
+                    *matCellDef="let element"
+                  >{{ element.dataFine }}</td>
+                </ng-container>
+
+                <ng-container
+                  class="custom-material-wrapper"
+                  matColumnDef="Costo"
+                >
+                  <th
+                    class="custom-material-wrapper"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  > Costo</th>
+                  <td
+                    class="custom-material-wrapper"
+                    mat-cell
+                    *matCellDef="let element"
+                  >{{ element.costo }}</td>
+                </ng-container>
+
+                <ng-container
+                  class="custom-material-wrapper"
+                  matColumnDef="Pagato"
+                >
+                  <th
+                    class="custom-material-wrapper"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >Pagato</th>
+                  <td
+                    class="custom-material-wrapper"
+                    mat-cell
+                    *matCellDef="let element"
+                  >{{ element.pagato? "SI":"NO" }}</td>
+                </ng-container>
+
+
+                <tr
+                  class="custom-material-wrapper"
+                  mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></tr>
+                <tr
+                  class="custom-material-wrapper"
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+              <mat-paginator
+                class="custom-material-wrapper"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+              ></mat-paginator>
+
+            </div>
+          </div>
+          <ng-template #noMembership>
+            <div class="col-5">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title class="text-center">Abbonamento</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    Nessuna Abbonamento inserito,clicca qui!
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button
+                    (click)="createGymMembership()"
+                    mat-raised-button
+                    color="success"
+                    class="custom-material-button mb-4"
+                  >
+                    <mat-icon class="mr-4">add</mat-icon><span>AGGIUNGI ABBONAMENTO</span>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+
+          </ng-template>
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          <div
+            class="card-wrapper"
+            *ngIf="gym.sensore!=null else noSensor"
+          >
+
+            <h3>Sensore
+              <mat-icon
+                matTooltip="Elimina Sensore"
+                (click)="deleteSensore()"
+              >delete</mat-icon>
+            </h3>
+            <h6>{{gym.sensore.nome}} <br>Inserire grafico appena arrivano le misurazioni</h6>
+          </div>
+          <ng-template #noSensor>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title class="text-center">Sensore</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  Nessuna Sensore inserito,clicca qui!
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button
+                  (click)="createGymSensor()"
+                  mat-raised-button
+                  color="success"
+                  class="custom-material-button mb-4"
+                >
+                  <mat-icon class="mr-4">add</mat-icon><span>AGGIUNGI SENSORE</span>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </ng-template>
+        </div>
+        <div class="col-12 col-md-6">
+          <app-map [palestra]="gym"></app-map>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

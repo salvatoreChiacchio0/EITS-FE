@@ -1,0 +1,169 @@
+<app-header-private></app-header-private>
+<div class="container-fluid">
+  <div class="row h-100" *ngIf="user">
+    <div class="col-12 col-md-10 offset-md-1 mt-4 h-100">
+      <div class="text-center w-100 mt-3 mb-3">
+        <h3>{{user.nome | uppercase}} {{user.cognome | uppercase}}</h3>
+      </div>
+      <div class="row justify-content-around mt-4 gap-3 gap-md-0">
+        <div class="col-12 col-md-auto">
+          Email <h5>{{user.email.toLowerCase()}}</h5>
+        </div>
+        <div class="col-12 col-md-auto text-start text-md-center" *ngIf="user?.abbonamenti ">
+          Abbonamenti <h5>{{user.abbonamenti.length}}</h5>
+        </div>
+        <div class="col-12 col-md-auto text-start text-md-center" *ngIf="user?.schedeAllenamento">
+          Schede <h5>{{user.schedeAllenamento.length}}</h5>
+        </div>
+      </div>
+
+      <mat-divider class="my-4"></mat-divider>
+
+      <div class="row justify-content-around">
+        <div class="col-xl-4 col-md-6 col-xxs-12 mb-4 mb-md-0"
+          *ngIf="user && user.abbonamenti.length == 0 else userMembership">
+          <mat-card class="no-abbonamenti">
+            <mat-card-header>
+              <mat-card-title>Abbonamenti</mat-card-title>
+              <mat-card-subtitle>Visualizza gli abbonamenti sottoscritti</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                Non hai sottoscritto nessun abbonamento, cerca una palestra!
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <ng-template #userMembership>
+          <div class="row">
+            <div class="col-10 offset-1 mt-3 mb-3">
+
+              <h3>Ricerca abbonamenti</h3>
+              <div class="row justify-content-between">
+                <div class="col-auto">
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Cerca per nome" autocomplete="off" (keyup)="filterData($event)">
+                  </mat-form-field>
+                </div>
+                <div class="col-auto">
+                  <mat-form-field appearance="outline">
+                    <mat-select (selectionChange)="onChange($event)" placeholder="Pagato">
+                      <mat-option value="true">Pagato</mat-option>
+                      <mat-option value="false">Non Pagato</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-auto">
+                  <button mat-button (click)="reset()">Reset Filtri</button>
+                </div>
+                <div class="custom-material-wrapper">
+                  <table mat-sort mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="Nome">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Nome</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element">
+                        {{ element.nome }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Data Inizio">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Data Inizio</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element">{{ element.dataInizio }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Data Fine">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Data Fine</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element">{{ element.dataFine }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Costo">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Costo</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element">{{ element.costo }}</td>
+                    </ng-container>
+
+
+                    <tr class="custom-material-wrapper" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="custom-material-wrapper" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                  </table>
+                  <mat-paginator class="custom-material-wrapper" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ng-template>
+        <div class="col-xl-4 col-md-6 col-xxs-12 " *ngIf="user && user.schedeAllenamento.length == 0 else userSchede">
+          <mat-card class="no-abbonamenti">
+            <mat-card-header>
+              <mat-card-title>Schede Allenamenti</mat-card-title>
+              <mat-card-subtitle>Visualizza le schede assegnate dalla tua palestra!</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                Non hai nessuna scheda di allenamento associata,a breve la palestra caricherà i ltuo piano di
+                allenamento!
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <ng-template #userSchede>
+          <div class="row">
+            <div class="col-10 offset-1 mt-3 mb-3">
+
+              <h3>Filtra le tue Schede di Allenamento</h3>
+              <div class="row justify-content-between">
+                <div class="col-auto">
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Cerca per nome" autocomplete="off"
+                      (keyup)="filterDataEsercizi($event)">
+                  </mat-form-field>
+                </div>
+                <div class="col-auto">
+                  <button mat-button (click)="resetEsercizi()">Reset Filtri</button>
+                </div>
+                <div class="custom-material-wrapper" id="htmlData">
+                  <table class="custom-material-wrapper" mat-sort mat-table [dataSource]="dataSourceEsercizi">
+                    <ng-container class="custom-material-wrapper" matColumnDef="Nome">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Nome</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element"
+                        (click)="detailScheda(element)">
+                        {{ element.nome }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container class="custom-material-wrapper" matColumnDef="Data Inizio">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Data Inizio</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element"
+                        (click)="detailScheda(element)">{{ element.dataInizio }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container class="custom-material-wrapper" matColumnDef="Data Fine">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Data Fine</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element"
+                        (click)="detailScheda(element)">{{ element.dataFine }}</td>
+                    </ng-container>
+
+                    <ng-container class="custom-material-wrapper" matColumnDef="Num Esercizi">
+                      <th class="custom-material-wrapper" mat-header-cell *matHeaderCellDef>Numero Esercizi</th>
+                      <td class="custom-material-wrapper" mat-cell *matCellDef="let element"
+                        (click)="detailScheda(element)">{{ element.esercizi.length
+                        }}</td>
+                    </ng-container>
+
+
+                    <tr class="custom-material-wrapper" mat-header-row *matHeaderRowDef="displayedColumnsEsercizi"></tr>
+                    <tr class="custom-material-wrapper" mat-row *matRowDef="let row; columns: displayedColumnsEsercizi">
+                    </tr>
+                  </table>
+                  <mat-paginator class="custom-material-wrapper" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      
+    </div>
+  </div>
+</div>

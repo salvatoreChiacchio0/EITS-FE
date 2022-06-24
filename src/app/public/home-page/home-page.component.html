@@ -1,0 +1,193 @@
+<nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
+    <div class="container">
+        <a class="navbar-brand logo-text" href="#">EITS</a>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ms-auto navbar-nav-scroll">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#header">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Servizi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#details">Dettagli</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  (click)="goToRegistration('utente')">Registrati</a>
+                </li>
+                
+            </ul>
+        </div>
+        <span class="nav-item">
+            <a class="btn-solid-sm" href="login">Login</a>
+        </span>
+    </div>
+    <div class="container-fluid header-container mt-4 mb-2">
+        <div class="col-10 offset-1">
+            <div class="row justify-content-center">
+                <div class="col-4 m-0 p-0 nav-item" style="margin: 0px">
+                    <a class="nav-link active" aria-current="page" href="#header">Home</a>
+                </div>
+                <div class="col-4 m-0 p-0 nav-item">
+                    <a class="nav-link" href="#services">Servizi</a>
+                </div>
+                <div class="col-4 m-0 p-0 nav-item">
+                    <a class="nav-link" href="#details">Dettagli</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<header id="header" class="header">
+    <div class="container mt-5" id="container-centro" style="margin-top: 20px !important;">
+        <div class="row align-items-center justify-content-around">
+            <div class="col-lg-6 col-xl-5 pb-5">
+                <div class="text-container">
+                    <h1 class="h1-large">Gestisci al meglio i tuoi centri di Allenamento</h1>
+                    <p class="p-large">
+                        EIMS facilita la gestione dei tuoi centri, offrendo uno spazio a atleti e palestra per consultare facilmente tutte le informazioni disponibili
+                    </p>
+                    <a class="btn-solid-lg" href="#services">Servizi Offerti</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-3 m-0 p-0" align="center">
+                <img src="assets\images\calendar.png" alt="sus" class="img-fluid image-home" />
+            </div>
+        </div>
+    </div>
+</header>
+<div id="services" class="cards-1 bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Esplora i nostri servizi</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-icon">
+                        <span class="fas fa-headphones-alt"></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gestione totale della palestra</h5>
+                        <p>
+                            Con EIMS puoi gestire tutti gli aspetti relativi ai tuoi centri. <br>
+                            La gestione degli abbonamenti e schede non sarà più un problema!
+                        </p>
+                        
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon red">
+                        <span class="far fa-clipboard"></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Iscrivi i tuoi centri</h5>
+                        <p>
+                            Iscrivi i tuoi centri di allenamento per gestirli con un click!
+                        </p>
+                       
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon green">
+                        <span class="far fa-comments"></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Ricevi un piano di allenamento</h5>
+                        <p>
+                            Il tuo Personal Trainer caricherà un piano di allenamento adeguato alle tua caratteristiche.<br>
+                            Potrai scaricarlo e consultarlo quando e come vuoi!
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="details" class="basic-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xl-7">
+                <div class="image-container">
+                    <img class="img-fluid" src="assets/images/details-1.png" alt="alternative" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-5">
+                <div class="text-container">
+                    <div class="section-title">WHAT WE DO</div>
+                    <h2>Abbiamo creato un servizio gratis per atleti e palestre</h2>
+                    <p>
+                        Quante volte hai rinunciato ad iniziare ad allenarti perchè non
+                        trovavi il giusto centro di allenamento? <br />
+                        Hai difficoltà a far gestire il tuo centro?
+                    </p>
+                    <a class="btn-solid-reg" href="#contact">Iscriviti</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xl-5">
+                <div class="text-container">
+                    <div class="section-title">ABOUT US</div>
+                    <h2>
+                        Sono uno studente che vuole agevolare la crescita di piccole-medio imprese nel settore
+                    </h2>
+                   
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-7">
+                <div class="image-container">
+                    <img class="img-fluid" src="assets/images/details-2.png" alt="alternative" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="contact" class="form-1">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="text-container">
+                    <div class="section-title">GET QUOTE</div>
+                    <h2>
+                        Contattaci per ricevere informazioni o notizie riguardo il nostro
+                        lavoro
+                    </h2>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control-input" placeholder="Name" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control-input" placeholder="Email" required />
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control-input" placeholder="Note" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-control-submit-button">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer bg-gray">
+    
+</div>

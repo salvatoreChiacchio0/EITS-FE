@@ -1,0 +1,15 @@
+<div class="row" *ngIf="esercizio">
+    <h3>{{esercizio.nome}}</h3>
+    <h5>{{esercizio.tipo}}</h5>
+        <img  src="{{esercizio.foto}}" alt="Photo of exercise">
+        <div class="col-12 mt-4">
+            <b>Numero di ripetizioni:</b> {{esercizio.numeroRipetizioni}} <br>
+            <b>Tempo di recupero:</b> {{esercizio.tempoRecupero}}
+        </div>
+        <div class="col-auto text-center">
+            <button type="submit" color="success" mat-raised-button  (click)="editEsercizio()">
+                <span > Modifica </span>
+              </button>
+        </div>
+       
+</div>

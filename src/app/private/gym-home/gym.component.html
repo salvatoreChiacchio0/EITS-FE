@@ -1,0 +1,169 @@
+<app-header-private></app-header-private>
+<app-loader *ngIf="isLoading; else palestreTemplate"></app-loader>
+<ng-template #palestreTemplate>
+  <div
+    class="container-fluid"
+    *ngIf="palestre"
+  >
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        <div class="d-flex justify-content-between mt-4 mb-4 ms-4">
+          <button
+            mat-raised-button
+            color="primary"
+            class="custom-material-button"
+            (click)="goToCreateGym()"
+          >
+            <mat-icon>add</mat-icon>
+            <span>Palestra</span>
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            class="custom-material-button"
+            (click)="createMembership()"
+          >
+            <mat-icon>add</mat-icon>
+            <span>Abbonamento</span>
+          </button>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="col-12"
+            *ngIf="palestre && palestre.length>0 else noData"
+          >
+            <div class="row justify-content-center">
+              <div class="col-xl-12 col-md-10 col-xxs-12 mb-4 map-palestre">
+                <mat-card class="example-card mb-4">
+                  <mat-card-header>
+                    <mat-icon mat-card-avatar>search</mat-icon>
+                    <mat-card-title>Cerca Palestra</mat-card-title>
+                    <mat-card-subtitle>Cerca tra tutte le palestre per nome</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <form class="example-form">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="outline"
+                      >
+                        <mat-label>Es. MyGym</mat-label>
+                        <input
+                          type="text"
+                          aria-label="Number"
+                          matInput
+                          [formControl]="myControl"
+                          [matAutocomplete]="auto"
+                        >
+                        <mat-autocomplete
+                          autoActiveFirstOption
+                          #auto="matAutocomplete"
+                        >
+                          <mat-option
+                            *ngFor="let option of filteredOptions | async"
+                            [value]="option.nome"
+                            (click)="goToGymDetails(option)"
+                          >
+                            {{option.nome}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </form>
+                  </mat-card-content>
+
+                </mat-card>
+              </div>
+              <div class="col-xl-12 col-md-10 col-xxs-12 mb-4">
+                <div class="custom-material-wrapper">
+                  <table
+                    class="custom-material-wrapper"
+                    mat-sort
+                    mat-table
+                    [dataSource]="dataSource"
+                  >
+                    <ng-container
+                      matColumnDef="Nome"
+                      class="custom-material-wrapper"
+                    >
+                      <th
+                        class="custom-material-wrapper"
+                        mat-header-cell
+                        *matHeaderCellDef
+                      >Nome</th>
+                      <td
+                        class="custom-material-wrapper clickable"
+                        mat-cell
+                        *matCellDef="let element"
+                        (click)="goToGymDetails(element)"
+                      >
+                        {{ element.nome }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Indirizzo">
+                      <th
+                        class="custom-material-wrapper"
+                        mat-header-cell
+                        *matHeaderCellDef
+                      >Indirizzo</th>
+                      <td
+                        class="custom-material-wrapper clickable"
+                        mat-cell
+                        *matCellDef="let element"
+                        (click)="goToGymDetails(element)"
+                      >{{ element.indirizzo }}
+                      </td>
+                    </ng-container>
+
+
+
+                    <tr
+                      class="custom-material-wrapper"
+                      mat-header-row
+                      *matHeaderRowDef="displayedColumns"
+                    ></tr>
+                    <tr
+                      class="custom-material-wrapper"
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                  </table>
+                  
+                  <app-map [palestre]="palestre"></app-map>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #noData>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <mat-card>
+                  <mat-card-header>
+                    <mat-card-title>Palestre</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>
+                      Nessuna Palestra inserita,clicca qui!
+                    </p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button
+                      (click)="goToCreateGym()"
+                      mat-raised-button
+                      color="success"
+                    >
+                      <mat-icon class="mr-4">add</mat-icon><span>CREA PALESTRA</span>
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+
+          </ng-template>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>
